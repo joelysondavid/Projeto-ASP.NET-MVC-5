@@ -21,13 +21,35 @@ namespace DemoCRUD.Controllers
             return View();
         }
 
-        public PartialViewResult Listar(int pag = 1, int regis = 5) // pagina e quantidade de registro por pag
+        public PartialViewResult Listar(Livro livro, int pag = 1, int regis = 10) // pagina e quantidade de registro por pag
         {
             var livros = db.Livros.Include(l => l.Genero);
+
+            // caso o titulo não seja nulo nem contenha valores em branco
+            if (!String.IsNullOrWhiteSpace(livro.Titulo))
+            {
+                // retorna a lista de livros que contenha o titulo passado
+                livros = livros.Where(l => l.Titulo.Contains(livro.Titulo));
+            }
+            if (!String.IsNullOrWhiteSpace(livro.Autor))
+            {
+                // retorna a lista de livros que contenha o autor informado
+                livros = livros.Where(l => l.Autor.Contains(livro.Autor));
+            }
+            if (livro.AnoEdicao != 0)
+            {
+                // retorna a lista de livros que contenha o ano informado
+                livros = livros.Where(l => l.AnoEdicao.ToString().Contains(livro.AnoEdicao.ToString()));
+            }
+            if (livro.Valor != decimal.Zero)
+            {
+                // retorna a lista de livros que contenha o valor informado
+                livros = livros.Where(l => l.Valor.ToString().Contains(livro.Valor.ToString()));
+            }
+
             // Skip((pag-1)*regis): pagina - 1 x registros por pagina
             // dessa forma toda a cada pagina pularemos os registros que já estão na pagina anterior
-            var livrosPaginados = livros.OrderBy(l => l.Titulo).Skip((pag-1)*regis).Take(regis);
-
+            var livrosPaginados = livros.OrderBy(l => l.Titulo).Skip((pag - 1) * regis).Take(regis);
             // como foi mudado o nome da view criada é necessário passar como parametro aqui
             return PartialView("_Listar", livrosPaginados.ToList());
         }

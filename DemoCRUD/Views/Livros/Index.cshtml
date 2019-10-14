@@ -7,7 +7,67 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a href="@Url.Action("Create")" class="btn btn-success">
+        <span class="glyphicon glyphicon-plus"></span>
+        Novo Livro
+    </a>
 </p>
 
-@Html.Action("Listar")
+<form class="form-inline">
+    <div class="form-group">
+        <label class="sr-only">Título</label>
+        <input type="text" class="form-control mb-2 mr-sm-2" name="Titulo" placeholder="Título">
+    </div>
+    <div class="form-group">
+        <label class="sr-only">Autor</label>
+        <input type="text" class="form-control" name="Autor" placeholder="Autor">
+    </div>
+    <div class="form-group">
+        <label class="sr-only">Ano da edição</label>
+        <input type="text" class="form-control" name="AnoEdicao" placeholder="Ano da edição">
+    </div>
+    <div class="form-group">
+        <label class="sr-only">Valor</label>
+        <input type="text" class="form-control" name="Valor" placeholder="Valor">
+    </div>
+    <button type="button" class="btn btn-primary mb-2" id="btnPesquisar">Filtrar</button>
+
+    <!-- NOTE que estes dois campos servem para auxiliar no site sendo invisiveis aos usuários -->
+    <!-- deve ter o mesmo nome dos parametros na controller (obs tentei com nomes diferentes deu errado kk) -->
+    <input type="hidden" name="pag" value="1" />
+    <input type="hidden" name="regis" value="10" />
+</form>
+<br />
+<div id="listagemLivros"></div>
+
+@section scripts{
+    <script type="text/javascript">
+        // quando o documento estiver 'pronto' chama a função 'configuracontroles'
+        $(document).ready(configurarControles);
+
+        // função para configuração da listagem
+        function configurarControles() {
+            // quando o botao com id 'btnPesquisar' for clicado irá executar listar livros
+            $("#btnPesquisar").click(listarLivros);
+            listarLivros();
+        }
+
+        // função da paginação
+        function paginar(valor) {
+
+            // obtem o elemento com name 'pagina'
+            var elementoPag = $("input[name='pag']");
+            // elementopag.val retorna o valor que está no elemento
+            var pagAtual = parseInt(elementoPag.val());
+            // atribue a soma entre a pagina atual e o valor passado no param para o elemento input
+            elementoPag.val(pagAtual + valor);
+
+            listarLivros();
+        }
+
+        function listarLivros() {
+            // pega o item com id 'listagemLivros' e carrega a action 'Listar'
+            $("#listagemLivros").load("@Url.Action("Listar")", $("form").serialize());
+        }
+    </script>
+}
