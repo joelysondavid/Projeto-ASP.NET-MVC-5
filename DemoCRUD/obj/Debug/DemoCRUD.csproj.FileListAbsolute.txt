@@ -85,3 +85,4 @@ C:\Users\Joelyson David\Documents\Works\Projetos\DemoCRUD\DemoCRUD\bin\EntityFra
 C:\Users\Joelyson David\Documents\Works\Projetos\DemoCRUD\DemoCRUD\bin\EntityFramework.SqlServer.dll
 C:\Users\Joelyson David\Documents\Works\Projetos\DemoCRUD\DemoCRUD\bin\EntityFramework.xml
 C:\Users\Joelyson David\Documents\Works\Projetos\DemoCRUD\DemoCRUD\bin\EntityFramework.SqlServer.xml
+C:\Users\Joelyson David\Documents\Works\Projetos\DemoCRUD\DemoCRUD\bin\System.Linq.Dynamic.dll

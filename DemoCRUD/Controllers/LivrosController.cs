@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -21,9 +22,16 @@ namespace DemoCRUD.Controllers
             return View();
         }
 
-        public PartialViewResult Listar(Livro livro, int pag = 1, int regis = 10) // pagina e quantidade de registro por pag
+        public JsonResult Listar(Livro livro, int current = 1, int rowCount = 10) // pagina e quantidade de registro por pag
         {
+            // obterá: sort[Titulo] || sort[Autor] || sort[AnoEdicao] || sort[Valor]
+            string chav = Request.Form.AllKeys.Where(k => k.StartsWith("sort")).FirstOrDefault();
+            // cariavel que recebe a ordenação do formulario
+            string ordenacao = Request[chav];
+            string campo = chav.Replace("sort[", string.Empty).Replace("]", string.Empty);
             var livros = db.Livros.Include(l => l.Genero);
+
+            int total = livros.Count();
 
             // caso o titulo não seja nulo nem contenha valores em branco
             if (!String.IsNullOrWhiteSpace(livro.Titulo))
@@ -46,12 +54,21 @@ namespace DemoCRUD.Controllers
                 // retorna a lista de livros que contenha o valor informado
                 livros = livros.Where(l => l.Valor.ToString().Contains(livro.Valor.ToString()));
             }
+            // variavel auxioliar com o campo e a ordenacao
+            string campoOrdenacao = string.Format("{0} {1}", campo, ordenacao);
+            // usando Linq
 
             // Skip((pag-1)*regis): pagina - 1 x registros por pagina
             // dessa forma toda a cada pagina pularemos os registros que já estão na pagina anterior
-            var livrosPaginados = livros.OrderBy(l => l.Titulo).Skip((pag - 1) * regis).Take(regis);
+            var livrosPaginados = livros.OrderBy(campoOrdenacao).Skip((current - 1) * rowCount).Take(rowCount); // utilizando linq.dynamic
             // como foi mudado o nome da view criada é necessário passar como parametro aqui
-            return PartialView("_Listar", livrosPaginados.ToList());
+            // é nessário pasasr o formato correto que o bootgrid pede na documentação
+            return Json(new {
+                rows = livrosPaginados.ToList(),
+                current = current, rowCount = rowCount,
+                total=total
+            },
+                JsonRequestBehavior.AllowGet);
         }
 
         // GET: Livros/Details/5

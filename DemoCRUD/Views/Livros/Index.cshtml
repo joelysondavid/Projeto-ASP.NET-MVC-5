@@ -13,34 +13,20 @@
     </a>
 </p>
 
-<form class="form-inline">
-    <div class="form-group">
-        <label class="sr-only">Título</label>
-        <input type="text" class="form-control mb-2 mr-sm-2" name="Titulo" placeholder="Título">
-    </div>
-    <div class="form-group">
-        <label class="sr-only">Autor</label>
-        <input type="text" class="form-control" name="Autor" placeholder="Autor">
-    </div>
-    <div class="form-group">
-        <label class="sr-only">Ano da edição</label>
-        <input type="text" class="form-control" name="AnoEdicao" placeholder="Ano da edição">
-    </div>
-    <div class="form-group">
-        <label class="sr-only">Valor</label>
-        <input type="text" class="form-control" name="Valor" placeholder="Valor">
-    </div>
-    <button type="button" class="btn btn-primary mb-2" id="btnPesquisar">Filtrar</button>
-
-    <!-- NOTE que estes dois campos servem para auxiliar no site sendo invisiveis aos usuários -->
-    <!-- deve ter o mesmo nome dos parametros na controller (obs tentei com nomes diferentes deu errado kk) -->
-    <input type="hidden" name="pag" value="1" />
-    <input type="hidden" name="regis" value="10" />
-</form>
-<br />
-<div id="listagemLivros"></div>
+<table id="gridDados">
+    <thead>
+        <tr>
+            <!-- data-column-id será referente ao nome do JSON que será correspondente a este campo -->
+            <th data-column-id="Titulo" data-order="asc">Título</th><!-- data-order para não dar erro quando pegar os dados do sort pelo bootgrid -->
+            <th data-column-id="Autor">Autor</th>
+            <th data-column-id="AnoEdicao">Ano da Edição</th>
+            <th data-column-id="Valor">Valor</th>
+        </tr>
+    </thead>
+</table>
 
 @section scripts{
+    <script  src="~/Scripts/jquery.bootgrid.js"></script>
     <script type="text/javascript">
         // quando o documento estiver 'pronto' chama a função 'configuracontroles'
         $(document).ready(configurarControles);
@@ -48,10 +34,15 @@
         // função para configuração da listagem
         function configurarControles() {
             // quando o botao com id 'btnPesquisar' for clicado irá executar listar livros
-            $("#btnPesquisar").click(listarLivros);
-            listarLivros();
+            // $("#btnPesquisar").click(listarLivros);
+            // listarLivros();
+            $("#gridDados").bootgrid({
+                ajax: true,
+                url: "@Url.Action("Listar")"
+            });
         }
 
+        @* com uso do bootgrid isso torna-se desnecessário
         // função da paginação
         function paginar(valor) {
 
@@ -68,6 +59,6 @@
         function listarLivros() {
             // pega o item com id 'listagemLivros' e carrega a action 'Listar'
             $("#listagemLivros").load("@Url.Action("Listar")", $("form").serialize());
-        }
+        }*@
     </script>
 }
