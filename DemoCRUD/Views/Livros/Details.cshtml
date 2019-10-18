@@ -4,22 +4,24 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Detalhes</h2>
 
 <div>
-    <h4>Livro</h4>
+    <h4>Livros</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Genero.Nome)
-        </dt>
+        @*
+            <dt>
+                @Html.DisplayNameFor(model => model.Genero.Nome)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Genero.Nome)
-        </dd>
-
+            <dd>
+                @Html.DisplayFor(model => model.Genero.Nome)
+            </dd>
+        *@
         <dt>
-            @Html.DisplayNameFor(model => model.Titulo)
+            @*@Html.DisplayNameFor(model => model.Titulo)*@
+            Titulo
         </dt>
 
         <dd>
@@ -35,7 +37,8 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.AnoEdicao)
+            Ano da Edição
+            @*@Html.DisplayNameFor(model => model.AnoEdicao)*@
         </dt>
 
         <dd>
@@ -52,7 +55,32 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div class="form-group" style="text-align: left; margin-left: 150px">
+    <p>
+        <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-chevron-left"></span></button>
+
+        @*<a href="@Url.Action("Edit", new { id = Model.Id})" class="btn btn-primary">Alterar</a>
+            <a href='#' class='btn-sm btn-warning' data-acao='Edit' data-row-id='" + row.Id + "'><span class='glyphicon glyphicon-edit'></span></a>
+            @* @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) *@
+    </p>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/jquery.bootgrid.js"></script>
+    <script src="~/Scripts/Projeto/ControlarGrid.js"></script>
+    <script type="text/javascript">
+        // quando o documento estiver 'pronto' chama a função 'configuracontroles'
+        // variavel para indicar qual controller será utilizada
+        var controller = "Livros";
+
+        var urlListar = "@Url.Action("Listar")";
+
+        $(document).ready(configurarControles);
+
+        $("a.btn").click(function () {
+        var acao = $(this).data("action");
+
+        abrirModal(acao);
+    });
+    </script>
+}

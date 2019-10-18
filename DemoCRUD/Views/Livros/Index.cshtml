@@ -1,64 +1,53 @@
 ﻿@model IEnumerable<DemoCRUD.Models.Livro>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Biblioteca";
 }
 
-<h2>Index</h2>
-
+<h2>Livros</h2>
+<hr />
 <p>
-    <a href="@Url.Action("Create")" class="btn btn-success">
+    <a href="#" class="btn btn-success" data-action="Create">
         <span class="glyphicon glyphicon-plus"></span>
         Novo Livro
     </a>
 </p>
-
 <table id="gridDados">
     <thead>
-        <tr>
+        <tr style="text-align:center">
             <!-- data-column-id será referente ao nome do JSON que será correspondente a este campo -->
             <th data-column-id="Titulo" data-order="asc">Título</th><!-- data-order para não dar erro quando pegar os dados do sort pelo bootgrid -->
             <th data-column-id="Autor">Autor</th>
             <th data-column-id="AnoEdicao">Ano da Edição</th>
             <th data-column-id="Valor">Valor</th>
+            <th data-formatter="acoes">Ações</th>
         </tr>
     </thead>
 </table>
 
+<!-- Modal-->
+<div class="modal fade" id="minhaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div id="conteudoModal">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section scripts{
-    <script  src="~/Scripts/jquery.bootgrid.js"></script>
+    <script src="~/Scripts/jquery.bootgrid.js"></script>
+    <script src="~/Scripts/Projeto/ControlarGrid.js"></script>
     <script type="text/javascript">
         // quando o documento estiver 'pronto' chama a função 'configuracontroles'
+        // variavel para indicar qual controller será utilizada
+        var controller = "Livros";
+
+        var urlListar = "@Url.Action("Listar")";
+
         $(document).ready(configurarControles);
-
-        // função para configuração da listagem
-        function configurarControles() {
-            // quando o botao com id 'btnPesquisar' for clicado irá executar listar livros
-            // $("#btnPesquisar").click(listarLivros);
-            // listarLivros();
-            $("#gridDados").bootgrid({
-                ajax: true,
-                url: "@Url.Action("Listar")"
-            });
-        }
-
-        @* com uso do bootgrid isso torna-se desnecessário
-        // função da paginação
-        function paginar(valor) {
-
-            // obtem o elemento com name 'pagina'
-            var elementoPag = $("input[name='pag']");
-            // elementopag.val retorna o valor que está no elemento
-            var pagAtual = parseInt(elementoPag.val());
-            // atribue a soma entre a pagina atual e o valor passado no param para o elemento input
-            elementoPag.val(pagAtual + valor);
-
-            listarLivros();
-        }
-
-        function listarLivros() {
-            // pega o item com id 'listagemLivros' e carrega a action 'Listar'
-            $("#listagemLivros").load("@Url.Action("Listar")", $("form").serialize());
-        }*@
     </script>
 }

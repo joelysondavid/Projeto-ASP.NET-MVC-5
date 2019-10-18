@@ -8,7 +8,7 @@ using System.Web;
 namespace DemoCRUD.AcessoDados
 {
     // cria a a base, a tabela e realiza a inserção destes dados caso a tabela ainda não exista
-    public class LivrosInit : CreateDatabaseIfNotExists<LivroContexto>
+    public class LivrosInit : DropCreateDatabaseIfModelChanges<LivroContexto>
     {
         protected override void Seed(LivroContexto contexto)
         {
@@ -73,7 +73,7 @@ namespace DemoCRUD.AcessoDados
                             Titulo = "Guerra Civil",
                             Autor = "McNiven, Steve; MILLAR, MARK",
                             AnoEdicao = 2010,
-                            Valor = 48m,
+                            Valor = 48.00m,
                             Genero = generos.FirstOrDefault(g => g.Nome == "Artes")
                 },
                 new Livro() {

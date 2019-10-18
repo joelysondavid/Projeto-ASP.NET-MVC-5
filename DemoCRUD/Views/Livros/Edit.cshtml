@@ -4,13 +4,13 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<h2>Alterações</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Livros", FormMethod.Post, new { id = "formCRUD" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Livro</h4>
         <hr />
@@ -18,57 +18,70 @@
         @Html.HiddenFor(model => model.Id)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Titulo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <label for="Titulo" class="control-label col-md-3">Título</label>
+            @*@Html.LabelFor(model => model.Titulo, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-9">
                 @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Autor, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <label for="Autor" class="control-label col-md-3">Autor</label>
+            @*@Html.LabelFor(model => model.Autor, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-9">
                 @Html.EditorFor(model => model.Autor, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Autor, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.AnoEdicao, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+        <div class="form-group" style="text-align:center">
+            <label for="AnoEdicao" class="control-label col-md-3">Ano da Edição</label>
+            @*@Html.LabelFor(model => model.AnoEdicao, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-9">
                 @Html.EditorFor(model => model.AnoEdicao, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.AnoEdicao, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Valor, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <label for="Valor" class="control-label col-md-3">Valor</label>
+            @*@Html.LabelFor(model => model.Valor, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-9">
                 @Html.EditorFor(model => model.Valor, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Valor, "", new { @class = "text-danger" })
+                @*@Html.ValidationMessageFor(model => model.Valor, "", new { @class = "text-danger" })*@
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.GeneroId, "GeneroId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <label for="GeneroId" class="control-label col-md-3">Genêro</label>
+            @*@Html.LabelFor(model => model.GeneroId, "GeneroId", htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-9">
                 @Html.DropDownList("GeneroId", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.GeneroId, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+            <div class="col-md-offset-2 col-md-10" style="margin-left:150px">
+                @*<a href="@Url.Action("Index")" class="btn btn-default">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>*@
+                <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-chevron-left"></span></button>
+                <input type="button" value="Salvar" class="btn btn-primary" />
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+@Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/Projeto/EnviarForm.js"></script>
+@*
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+*@

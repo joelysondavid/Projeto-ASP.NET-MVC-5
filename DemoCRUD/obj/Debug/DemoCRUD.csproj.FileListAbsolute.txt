@@ -77,7 +77,6 @@ C:\Users\Joelyson David\Documents\Works\Projetos\DemoCRUD\DemoCRUD\bin\pt-br\Sys
 C:\Users\Joelyson David\Documents\Works\Projetos\DemoCRUD\DemoCRUD\bin\pt-br\System.Web.WebPages.Deployment.resources.dll
 C:\Users\Joelyson David\Documents\Works\Projetos\DemoCRUD\DemoCRUD\bin\pt-br\System.Web.WebPages.Razor.resources.dll
 C:\Users\Joelyson David\Documents\Works\Projetos\DemoCRUD\DemoCRUD\obj\Debug\DemoCRUD.csprojAssemblyReference.cache
-C:\Users\Joelyson David\Documents\Works\Projetos\DemoCRUD\DemoCRUD\obj\Debug\DemoCRUD.csproj.CoreCompileInputs.cache
 C:\Users\Joelyson David\Documents\Works\Projetos\DemoCRUD\DemoCRUD\obj\Debug\DemoCRUD.csproj.CopyComplete
 C:\Users\Joelyson David\Documents\Works\Projetos\DemoCRUD\DemoCRUD\obj\Debug\DemoCRUD.dll
 C:\Users\Joelyson David\Documents\Works\Projetos\DemoCRUD\DemoCRUD\obj\Debug\DemoCRUD.pdb

@@ -4,69 +4,73 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2>Livros</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "Livros", FormMethod.Post, new { id = "formCRUD" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>Livro</h4>
+        <h4>Cadastro</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.Titulo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <label for="Titulo" class="control-label col-md-3">Título</label>
+            @*@Html.LabelFor(model => model.Titulo, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-9">
                 @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Autor, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.Autor, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
                 @Html.EditorFor(model => model.Autor, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Autor, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.AnoEdicao, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <label for="AnoEdicao" class="control-label col-md-3">Ano da Edição</label>
+            @*@Html.LabelFor(model => model.AnoEdicao, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-9">
                 @Html.EditorFor(model => model.AnoEdicao, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.AnoEdicao, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Valor, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.Valor, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
                 @Html.EditorFor(model => model.Valor, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Valor, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.GeneroId, "GeneroId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.GeneroId, "GeneroId", htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
                 @Html.DropDownList("GeneroId", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.GeneroId, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+        <div class="form-group" style="text-align: left; margin-left: 150px">
+            @*
+                <a href="@Url.Action("Index")" class="btn btn-default">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>*@
+            <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-chevron-left"></span></button>
+            <input type="button" value="Cadastrar" class="btn btn-primary" />
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+@Scripts.Render("~/bundles/jqueryval")
+@* referenciando o script de envido de formulário *@
+<script src="~/Scripts/Projeto/EnviarForm.js"></script>
+@*@section Scripts {
+    }*@
